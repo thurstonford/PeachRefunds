@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>COGWare.$(AssemblyName)</PackageId>
+    <Title>Process refunds for Peach Payments credit card transactions.</Title>
+    <Authors>Lance Ford</Authors>
+    <Company>COGWare</Company>
+    <Description>Process Peach Payments credit card refunds easily via this robust and performant wrapper for the Peach Payments refund API.</Description>
+    <PackageTags>peach;payment;refund;credit;card</PackageTags>
+    <PackageProjectUrl>https://cogware.co.za/peachpayments</PackageProjectUrl>
+    <Product>COGWare.$(AssemblyName)</Product>
+    <Version>$(VersionPrefix)</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Copyright>Copyright (c) COGWare 2023</Copyright>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\DataProvider.cs" />
+    <Compile Remove="Data\SqlHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+</Project>
