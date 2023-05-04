@@ -14,7 +14,7 @@ CLI:
     
 ## Add Config
 Add the PeachRefunds.IsProduction key to your settings file:  
-       '<add key="PeachRefunds.IsProduction" value="false" />'    
+       `<add key="PeachRefunds.IsProduction" value="false" />`
 
 ## Usage
 
