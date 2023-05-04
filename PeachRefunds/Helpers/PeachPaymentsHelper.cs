@@ -1,12 +1,17 @@
 ﻿using Newtonsoft.Json;
 using PeachPayments.Models;
 using RestSharp;
+using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace PeachPayments.Helpers
 {
     internal class PeachPaymentsHelper {
+        // Default to TEST mode if the config setting is missing
+        private static readonly bool PP_IS_PRODUCTION = Boolean.Parse(ConfigurationManager.AppSettings["PeachRefunds.IsProduction"] ?? "false");
+        private static readonly string PP_BASE = PP_IS_PRODUCTION ? "https://api.peachpayments.com" : "https://testapi.peachpayments.com";
+        private static readonly string PP_REFUND_ENDPOINT = "/v1/checkout/refund";
 
         internal static readonly Dictionary<string, string> codes = new(){
             {"000.000.000","Transaction successfully processed in LIVE system" },
@@ -32,9 +37,12 @@ namespace PeachPayments.Helpers
 
             RefundResult? refundResult = null;
 
+            Console.WriteLine("Refund URL: " + PP_BASE);
+            Console.WriteLine("Refund endpoint: " + PP_REFUND_ENDPOINT);
+
             //https://developer.peachpayments.com/docs/checkout-refund                        
-            var restClient = new RestClient(SettingsHelper.PP_BASE_URL!);
-            var restRequest = new RestRequest(SettingsHelper.PP_REFUND_ENDPOINT, Method.Post);
+            var restClient = new RestClient(PP_BASE!);
+            var restRequest = new RestRequest(PP_REFUND_ENDPOINT, Method.Post);
 
             restRequest.AddOrUpdateHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -43,19 +51,24 @@ namespace PeachPayments.Helpers
                 { "authentication.entityId", entityId.Trim() },
                 { "currency", currency.Trim() },
                 { "id", transactionId.Trim() },
-                { "paymentType", "RF" } //RF denotes a refund            
+                { "paymentType", "RF" }//RF denotes a refund                            
             };
 
             foreach(var value in values) {
                 restRequest.AddParameter(value.Key, value.Value);
+                Console.WriteLine(value.Key + "=" + value.Value);
             }
 
             // Signature is added last
-            restRequest.AddParameter("signature", GetSignature(values, secret));
+            string signature = GetSignature(values, secret);
+            restRequest.AddParameter("signature", signature);
+            Console.WriteLine("signature" + "=" + signature);
 
             var response = await restClient.ExecutePostAsync(restRequest);
 
             var result = response.Content;
+
+            Console.WriteLine("Peach Payments API response: " + result);
 
             // See if we can deserialize into the expected format
             refundResult = JsonConvert.DeserializeObject<RefundResult>(result!);

@@ -4,7 +4,7 @@ using PeachPayments.Models;
 namespace PeachPayments
 {
     public static class RefundHelper
-    {
+    {        
         public static async Task<RefundResult?> ProcessRefund(
             RefundConfig refundConfig, 
             Refund refund) {
@@ -12,7 +12,7 @@ namespace PeachPayments
             ValidateRefundConfig(refundConfig);
             ValidateRefund(refund);
 
-            Logger.Debug("processing refundId " + refund.Id);
+            Console.WriteLine("processing refundId " + refund.Id);
 
             RefundResult? refundResult =
                     await PeachPaymentsHelper.ProcessRefund(
@@ -24,18 +24,18 @@ namespace PeachPayments
 
             if(refundResult != null && refundResult.Result != null) {
                 if(refundResult.IsSuccessful) {
-                    Logger.Info("RefundId " + refund.Id +
+                    Console.WriteLine("RefundId " + refund.Id +
                         " processed successfully, reference " + refundResult.Id);
 
                 } else {
-                    Logger.Error("RefundId " + refund.Id + " failed: " +
+                    Console.WriteLine("RefundId " + refund.Id + " failed: " +
                         refundResult.Result.Code +
                         ", " + refundResult.Result.Description);
                 }
             } else {
                 string peachRefundError = "Invalid response from endpoint";
 
-                Logger.Error(peachRefundError);
+                Console.WriteLine(peachRefundError);
             }
 
             return refundResult;
