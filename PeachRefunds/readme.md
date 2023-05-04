@@ -2,6 +2,15 @@
 
 Process refunds for transactions submitted via the [Peach Payments payment gateway](https://www.peachpayments.com/)
 
+## Getting Started
+
+Install the standard Nuget package into your ASP.NET Core application.
+
+    ```
+    Package Manager : Install-Package COGWare.PeachRefunds -Version 1.0.0
+    CLI : dotnet add package --version 1.0.0 COGWare.PeachRefunds
+    ```
+
 ## Usage
 
        try {
