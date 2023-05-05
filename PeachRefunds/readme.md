@@ -13,7 +13,7 @@ CLI:
        `dotnet add package --version 1.0.1 COGWare.PeachRefunds` 
     
 ## Add Config
-Add the PeachRefunds.IsProduction key to your settings file:  
+Add the PeachRefunds.IsProduction key to your settings file, eg:  
        `<add key="PeachRefunds.IsProduction" value="false" />`
 
 ## Usage
@@ -58,7 +58,8 @@ Add the PeachRefunds.IsProduction key to your settings file:
             Console.WriteLine("ERROR: " + ex.Message);
         }
 
-###Response object:
+
+### Response object:
 #### RefundResult
 An object representing the response from the Peach Payments API.
 
@@ -93,4 +94,4 @@ An object representing the response from the Peach Payments API.
 I welcome comments, suggestions, feature requests and even honest criticism :)  
  
 - [Github Repo](https://github.com/thurstonford?tab=repositories)  
-- [Email](mailto:lance@cogware.co.za)
+- Email: lance@cogware.co.za
