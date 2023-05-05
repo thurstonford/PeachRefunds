@@ -7,10 +7,10 @@ Process refunds for transactions submitted via the [Peach Payments payment gatew
 Install the standard Nuget package into your ASP.NET Core application.
 
 Package Manager:  
-       `Install-Package COGWare.PeachRefunds -Version 1.0.1`  
+       `Install-Package COGWare.PeachRefunds -Version <version>`  
 
 CLI:  
-       `dotnet add package --version 1.0.1 COGWare.PeachRefunds` 
+       `dotnet add package --version <version> COGWare.PeachRefunds` 
     
 ## Add Config
 Add the PeachRefunds.IsProduction key to your settings file, eg:  
