@@ -14,7 +14,7 @@
     <PackageTags>peach;payment;refund;credit;card;ecommerce;</PackageTags>
     <PackageProjectUrl>https://github.com/thurstonford/PeachRefunds</PackageProjectUrl>
     <Product>COGWare.$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)1.0.2</Version>
+    <Version>$(VersionPrefix)1.0.3</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Copyright>Copyright (c) COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
