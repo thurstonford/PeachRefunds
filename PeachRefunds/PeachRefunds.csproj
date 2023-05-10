@@ -14,17 +14,15 @@
     <PackageTags>peach;payment;refund;credit;card;ecommerce;</PackageTags>
     <PackageProjectUrl>https://github.com/thurstonford/PeachRefunds</PackageProjectUrl>
     <Product>COGWare.$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)1.0.3</Version>
+    <Version>$(VersionPrefix)1.0.4</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Copyright>Copyright (c) COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <FileVersion>1.0.1</FileVersion>
+    <PackageIcon>logo_light_128.png</PackageIcon>
+    <PackageReleaseNotes>Added logging capabilities via Microsoft.Extensions.Logging.</PackageReleaseNotes>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="readme.md" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="README.md">
@@ -35,13 +33,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
+    <None Include="..\..\..\..\..\..\Lances Stuff\Cogware\logo_light_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
