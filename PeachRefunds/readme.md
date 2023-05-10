@@ -4,7 +4,7 @@ Process refunds for transactions submitted via the [Peach Payments payment gatew
 
 ## Getting Started
 
-Install the standard Nuget package into your ASP.NET Core application.
+Install the standard Nuget package into your .NET Core application.
 
 Package Manager:  
        `Install-Package COGWare.PeachRefunds -Version <version>`  
@@ -39,7 +39,9 @@ Add the PeachRefunds.IsProduction key to your settings file, eg:
                     Id = "1",
                     // The original (Peach Payments) transactionId of the payment.
                     TransactionId = "456xyz"
-                });
+                },
+                // optional logger (whatever you may have called yours)
+                logger);
 
             // Checks the status of the refund against the API response codes to 
             // determine if the refund can be considered successful.
@@ -83,6 +85,9 @@ An object representing the response from the Peach Payments API.
 - Timestamp (DateTime) - When this refund was processed.
 - NDC (String) - No idea, will find out.
 - IsSuccessful (Boolean) - A flag indicating if the refund was successfully processed.
+
+## Logging:
+Implements Microsoft.Extensions.Logging, so log away (DEBUG level).
 
 ## Additional documentation
 

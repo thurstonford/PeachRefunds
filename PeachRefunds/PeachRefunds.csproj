@@ -14,7 +14,7 @@
     <PackageTags>peach;payment;refund;credit;card;ecommerce;</PackageTags>
     <PackageProjectUrl>https://github.com/thurstonford/PeachRefunds</PackageProjectUrl>
     <Product>COGWare.$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)1.0.3</Version>
+    <Version>$(VersionPrefix)1.0.4</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Copyright>Copyright (c) COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
