@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using PeachPayments.Models;
 using RestSharp;
 using System.Configuration;
@@ -33,12 +34,18 @@ namespace PeachPayments.Helpers
                 string secret,
                 double amount,
                 string currency,
-                string transactionId) {
+                string transactionId,
+                ILogger? logger) {
 
             RefundResult? refundResult = null;
+            
+            string refundUrl = "Refund URL: " + PP_BASE;
+            Console.WriteLine(refundUrl);
+            logger?.LogDebug(refundUrl);
 
-            Console.WriteLine("Refund URL: " + PP_BASE);
-            Console.WriteLine("Refund endpoint: " + PP_REFUND_ENDPOINT);
+            string refundEndpoint = "Refund endpoint: " + PP_REFUND_ENDPOINT;
+            Console.WriteLine(refundEndpoint);
+            logger?.LogDebug(refundEndpoint);
 
             //https://developer.peachpayments.com/docs/checkout-refund                        
             var restClient = new RestClient(PP_BASE!);
@@ -57,18 +64,21 @@ namespace PeachPayments.Helpers
             foreach(var value in values) {
                 restRequest.AddParameter(value.Key, value.Value);
                 Console.WriteLine(value.Key + "=" + value.Value);
+                logger?.LogDebug(value.Key + "=" + value.Value);
             }
 
             // Signature is added last
             string signature = GetSignature(values, secret);
             restRequest.AddParameter("signature", signature);
             Console.WriteLine("signature" + "=" + signature);
+            logger?.LogDebug("signature" + "=" + signature);
 
             var response = await restClient.ExecutePostAsync(restRequest);
 
             var result = response.Content;
 
             Console.WriteLine("Peach Payments API response: " + result);
+            logger?.LogDebug("Peach Payments API response: " + result);
 
             // See if we can deserialize into the expected format
             refundResult = JsonConvert.DeserializeObject<RefundResult>(result!);

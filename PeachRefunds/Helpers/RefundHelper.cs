@@ -1,13 +1,15 @@
-﻿using PeachPayments.Helpers;
+﻿using Microsoft.Extensions.Logging;
+using PeachPayments.Helpers;
 using PeachPayments.Models;
 
 namespace PeachPayments
 {
     public static class RefundHelper
-    {        
+    {
         public static async Task<RefundResult?> ProcessRefund(
-            RefundConfig refundConfig, 
-            Refund refund) {
+           RefundConfig refundConfig,
+           Refund refund,
+           ILogger? logger = null) {
 
             ValidateRefundConfig(refundConfig);
             ValidateRefund(refund);
@@ -20,22 +22,20 @@ namespace PeachPayments
                         refundConfig.Secret!,
                         refund.Amount,
                         refund.Currency!,
-                        refund.TransactionId!);
+                        refund.TransactionId!,
+                        logger);
 
             if(refundResult != null && refundResult.Result != null) {
                 if(refundResult.IsSuccessful) {
-                    Console.WriteLine("RefundId " + refund.Id +
+                    logger?.LogDebug("RefundId " + refund.Id +
                         " processed successfully, reference " + refundResult.Id);
 
                 } else {
-                    Console.WriteLine("RefundId " + refund.Id + " failed: " +
-                        refundResult.Result.Code +
-                        ", " + refundResult.Result.Description);
+                    logger?.LogDebug("RefundId " + refund.Id + " failed: " +
+                        refundResult.Result.Code + ", " + refundResult.Result.Description);
                 }
             } else {
-                string peachRefundError = "Invalid response from endpoint";
-
-                Console.WriteLine(peachRefundError);
+                logger?.LogDebug("Invalid response from endpoint");
             }
 
             return refundResult;

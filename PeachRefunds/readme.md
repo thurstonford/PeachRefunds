@@ -4,7 +4,7 @@ Process refunds for transactions submitted via the [Peach Payments payment gatew
 
 ## Getting Started
 
-Install the standard Nuget package into your ASP.NET Core application.
+Install the standard Nuget package into your .NET Core application.
 
 Package Manager:  
        `Install-Package COGWare.PeachRefunds -Version <version>`  
@@ -17,8 +17,58 @@ Add the PeachRefunds.IsProduction key to your settings file, eg:
        `<add key="PeachRefunds.IsProduction" value="false" />`
 
 ## Usage
+### With logging:
+        // Create your logger from the logging framework's extensions package (in this case, NLog)
+        var logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<Program>();
 
-       try {
+        logger.LogInformation("starting");
+
+        try {
+            RefundResult? refundResult = await PeachPayments.RefundHelper.ProcessRefund(
+                // An instance of the RefundConfig object containing details of the
+                // Peach Payments entity that the original transaction was processed against.
+                // These details are available in the Peach Payments Console. 
+                new RefundConfig() {
+                    // Your merchant entityId.
+                    EntityId = "xyz123",
+                    // Your merchant secret.
+                    Secret = "123xyz"
+                },
+                // An instance of a Refund object representing the refund to be processed.
+                new Refund() {
+                    // The amount to be refunded.
+                    Amount = 1.00,
+                    // Currency code.
+                    Currency = "ZAR",
+                    // Your refund identifier.
+                    Id = "1",
+                    // The original (Peach Payments) transactionId of the payment.
+                    TransactionId = "456xyz"
+                },
+                // optional logger
+                logger);
+
+            // Checks the status of the refund against the API response codes to 
+            // determine if the refund can be considered successful.
+            if(refundResult!.IsSuccessful) {
+                // Update the status of the refund in your refund system.
+                Console.WriteLine("Refund processed successfully! " +
+                    "Refund reference: '" + refundResult.Id + "'");
+            } else {
+                // Update the status of the refund in your refund system, optionally including the
+                // return code and description for analysis and manual resolution (if necessary).
+                Console.WriteLine("Refund failed: " +
+                    refundResult.Result!.Code + ", " +
+                    refundResult.Result!.Description);
+            }
+        } catch(Exception ex) {
+            Console.WriteLine("ERROR: " + ex.Message);
+        }
+
+        logger.LogInformation("complete");
+    
+### Without logging:
+        try {
             RefundResult? refundResult = await PeachPayments.RefundHelper.ProcessRefund(
                 // An instance of the RefundConfig object containing details of the
                 // Peach Payments entity that the original transaction was processed against.
@@ -45,19 +95,18 @@ Add the PeachRefunds.IsProduction key to your settings file, eg:
             // determine if the refund can be considered successful.
             if(refundResult!.IsSuccessful) {
                 // Update the status of the refund in your refund system.
-                Console.WriteLine("Refund processed successfully! " + 
+                Console.WriteLine("Refund processed successfully! " +
                     "Refund reference: '" + refundResult.Id + "'");
             } else {
                 // Update the status of the refund in your refund system, optionally including the
                 // return code and description for analysis and manual resolution (if necessary).
-                Console.WriteLine("Refund failed: " + 
-                    refundResult.Result!.Code + ", " + 
+                Console.WriteLine("Refund failed: " +
+                    refundResult.Result!.Code + ", " +
                     refundResult.Result!.Description);
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             Console.WriteLine("ERROR: " + ex.Message);
         }
-
 
 ### Response object:
 #### RefundResult
@@ -83,6 +132,10 @@ An object representing the response from the Peach Payments API.
 - Timestamp (DateTime) - When this refund was processed.
 - NDC (String) - No idea, will find out.
 - IsSuccessful (Boolean) - A flag indicating if the refund was successfully processed.
+
+## Logging:
+Implements Microsoft.Extensions.Logging, so log away with any compatible logging framework,eg: [NLog](https://github.com/NLog/NLog.Extensions.Logging)
+This package logs at DEBUG level.
 
 ## Additional documentation
 
