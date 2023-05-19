@@ -25,6 +25,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\APIPaymentsRequest.cs" />
+    <Compile Remove="Models\APIPaymentsResponse.cs" />
+    <Compile Remove="Models\CDVResult.cs" />
+    <Compile Remove="Models\CDVResults.cs" />
+    <Compile Remove="Models\FileContents.cs" />
+    <Compile Remove="Models\Header.cs" />
+    <Compile Remove="Models\Payments.cs" />
+    <Compile Remove="Models\Totals.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
