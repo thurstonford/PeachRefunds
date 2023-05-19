@@ -147,4 +147,8 @@ This package logs at DEBUG level.
 I welcome comments, suggestions, feature requests and even honest criticism :)  
  
 - [Github Repo](https://github.com/thurstonford?tab=repositories)  
-- Email: lance@cogware.co.za
+- Email: lance@cogware.co.za  
+
+## Want to show your appreciation?
+That's mighty generous - thank you!  
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=cogware&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00 'Buy me a coffee')](https://www.buymeacoffee.com/cogware)

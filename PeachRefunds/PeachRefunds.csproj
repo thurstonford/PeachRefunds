@@ -16,7 +16,7 @@
     <Product>COGWare.$(AssemblyName)</Product>
     <Version>$(VersionPrefix)1.0.4</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <Copyright>Copyright (c) COGWare 2023</Copyright>
+    <Copyright>Copyright © COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <FileVersion>1.0.1</FileVersion>
