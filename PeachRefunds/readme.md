@@ -154,3 +154,7 @@ I welcome comments, suggestions, feature requests and even honest criticism :)
  
 - [Github Repo](https://github.com/thurstonford?tab=repositories)  
 - Email: lance@cogware.co.za
+
+## Want to show your appreciation?
+That's mighty generous - thank you!  
+[Buy me a coffee](https://www.buymeacoffee.com/cogware)
