@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeachRefunds", "PeachRefunds\PeachRefunds.csproj", "{AA24CC58-CCD0-436F-95FA-1B560CFB8302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harness", "Harness\Harness.csproj", "{7509726E-6A0D-4591-80BC-5C68852834E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harness", "Harness\Harness.csproj", "{7509726E-6A0D-4591-80BC-5C68852834E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarnessNET48", "HarnessNET48\HarnessNET48.csproj", "{02846837-6301-40EB-8F9A-95A412CE30C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7509726E-6A0D-4591-80BC-5C68852834E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7509726E-6A0D-4591-80BC-5C68852834E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7509726E-6A0D-4591-80BC-5C68852834E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02846837-6301-40EB-8F9A-95A412CE30C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02846837-6301-40EB-8F9A-95A412CE30C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02846837-6301-40EB-8F9A-95A412CE30C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02846837-6301-40EB-8F9A-95A412CE30C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

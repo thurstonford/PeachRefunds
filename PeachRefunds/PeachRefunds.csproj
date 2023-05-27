@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <!--<TargetFramework>net6.0</TargetFramework>-->
+    <TargetFrameworks>net48;net6.0</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>COGWare.$(AssemblyName)</PackageId>
     <Title>Process refunds for Peach Payments credit card transactions.</Title>
@@ -14,16 +16,21 @@
     <PackageTags>peach;payment;refund;credit;card;ecommerce;</PackageTags>
     <PackageProjectUrl>https://github.com/thurstonford/PeachRefunds</PackageProjectUrl>
     <Product>COGWare.$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)1.0.4</Version>
+    <Version>$(VersionPrefix)1.0.6</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Copyright>Copyright (c) COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <FileVersion>1.0.1</FileVersion>
     <PackageIcon>logo_light_128.png</PackageIcon>
-    <PackageReleaseNotes>Added logging capabilities via Microsoft.Extensions.Logging.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added exception handling for missing config, support for .NET 4.8, and some basic metrics to determine usage.</PackageReleaseNotes>
   </PropertyGroup>
 
+  <!-- Only enable nullable feature for the supported frameworks -->
+  <!--<PropertyGroup Condition=" '$(TargetFramework)' != 'net48' ">
+    <Nullable>enable</Nullable>
+  </PropertyGroup>-->
+  
   <ItemGroup>
     <Content Include="README.md">
       <Pack>True</Pack>

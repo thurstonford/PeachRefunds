@@ -2,19 +2,18 @@
 using Newtonsoft.Json;
 using PeachPayments.Models;
 using RestSharp;
-using System.Configuration;
+using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PeachPayments.Helpers
 {
-    internal class PeachPaymentsHelper {
-        // Default to TEST mode if the config setting is missing
-        private static readonly bool PP_IS_PRODUCTION = Boolean.Parse(ConfigurationManager.AppSettings["PeachRefunds.IsProduction"] ?? "false");
-        private static readonly string PP_BASE = PP_IS_PRODUCTION ? "https://api.peachpayments.com" : "https://testapi.peachpayments.com";
-        private static readonly string PP_REFUND_ENDPOINT = "/v1/checkout/refund";
+    internal class PeachPaymentsHelper {        
+        private static readonly string PP_REFUND_ENDPOINT = "/v1/checkout/refund";        
 
-        internal static readonly Dictionary<string, string> codes = new(){
+        internal static readonly Dictionary<string, string> codes = new Dictionary<string, string>(){
             {"000.000.000","Transaction successfully processed in LIVE system" },
             {"000.100.110","Transaction successfully processed in TEST system" },
             {"000.200.000","Transaction pending" },
@@ -35,11 +34,14 @@ namespace PeachPayments.Helpers
                 double amount,
                 string currency,
                 string transactionId,
-                ILogger? logger) {
+                ILogger? logger,
+                bool isProduction) {            
 
             RefundResult? refundResult = null;
-            
-            string refundUrl = "Refund URL: " + PP_BASE;
+
+            string ppBase = isProduction ? "https://api.peachpayments.com" : "https://testapi.peachpayments.com";
+
+            string refundUrl = "Refund URL: " + ppBase;
             Console.WriteLine(refundUrl);
             logger?.LogDebug(refundUrl);
 
@@ -48,12 +50,12 @@ namespace PeachPayments.Helpers
             logger?.LogDebug(refundEndpoint);
 
             //https://developer.peachpayments.com/docs/checkout-refund                        
-            var restClient = new RestClient(PP_BASE!);
+            var restClient = new RestClient(ppBase!);
             var restRequest = new RestRequest(PP_REFUND_ENDPOINT, Method.Post);
 
             restRequest.AddOrUpdateHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            Dictionary<string, string> values = new() {
+            Dictionary<string, string> values = new Dictionary<string, string>() {
                 { "amount", amount.ToString("0.00") },
                 { "authentication.entityId", entityId.Trim() },
                 { "currency", currency.Trim() },
@@ -120,15 +122,15 @@ namespace PeachPayments.Helpers
             //concatenated, without any spaces or special characters, and signed with the secret token as the key.
             //The generated signature itself forms part of the request for validation by Peach Payments.
 
-            StringBuilder stringBuilder = new();
+            StringBuilder stringBuilder = new StringBuilder();
 
             foreach(var item in values) {
                 stringBuilder.Append(item.Key);
                 stringBuilder.Append(item.Value);
             }
 
-            using HMACSHA256 hmac = new(UTF8Encoding.UTF8.GetBytes(secret));
+            using HMACSHA256 hmac = new HMACSHA256(UTF8Encoding.UTF8.GetBytes(secret));
             return BitConverter.ToString(hmac.ComputeHash(UTF8Encoding.UTF8.GetBytes(stringBuilder.ToString()))).Replace("-", "").ToLower();
-        }
+        }        
     }
 }
