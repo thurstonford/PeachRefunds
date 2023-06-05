@@ -1,19 +1,21 @@
-﻿using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
+﻿//using Microsoft.Extensions.Logging;
+//using NLog.Extensions.Logging;
 using PeachPayments.Models;
+using System;
+using System.Threading.Tasks;
 
-namespace Harness
+namespace HarnessNET48
 {
     internal class Program
-    {        
+    {
         static async Task Main(string[] args) {
             // Create your logger from the logging framework's extensions package (in this case, NLog)
-            var logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<Program>();
+            //var logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<Program>();
 
-            logger.LogInformation("starting");
+           // logger.LogInformation("starting");
 
             try {
-                RefundResult? refundResult = await PeachPayments.RefundHelper.ProcessRefund(
+                RefundResult refundResult = await PeachPayments.RefundHelper.ProcessRefund(
                     // An instance of the RefundConfig object containing details of the
                     // Peach Payments entity that the original transaction was processed against.
                     // These details are available in the Peach Payments Console. 
@@ -35,11 +37,11 @@ namespace Harness
                         TransactionId = "456xyz"
                     },
                     // optional logger
-                    logger);
+                    null);
 
                 // Checks the status of the refund against the API response codes to 
                 // determine if the refund can be considered successful.
-                if(refundResult!.IsSuccessful) {
+                if(refundResult.IsSuccessful) {
                     // Update the status of the refund in your refund system.
                     Console.WriteLine("Refund processed successfully! " +
                         "Refund reference: '" + refundResult.Id + "'");
@@ -47,14 +49,14 @@ namespace Harness
                     // Update the status of the refund in your refund system, optionally including the
                     // return code and description for analysis and manual resolution (if necessary).
                     Console.WriteLine("Refund failed: " +
-                        refundResult.Result!.Code + ", " +
-                        refundResult.Result!.Description);
+                        refundResult.Result.Code + ", " +
+                        refundResult.Result.Description);
                 }
             } catch(Exception ex) {
                 Console.WriteLine("ERROR: " + ex.GetBaseException().Message);
             }
 
-            logger.LogInformation("complete");
+            //logger.LogInformation("complete");
 
             Console.ReadLine();
         }
