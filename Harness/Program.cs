@@ -13,15 +13,15 @@ namespace Harness
             logger.LogInformation("starting");
 
             try {
-                RefundResult? refundResult = await PeachPayments.RefundHelper.ProcessRefund(
+                RefundResult? refundResult = await PeachRefunds.RefundHelper.ProcessRefund(
                     // An instance of the RefundConfig object containing details of the
                     // Peach Payments entity that the original transaction was processed against.
                     // These details are available in the Peach Payments Console. 
                     new RefundConfig() {
                         // Your merchant entityId.
-                        EntityId = "xyz123",
+                        EntityId = "your_entity_id_here",
                         // Your merchant secret.
-                        Secret = "123xyz"
+                        Secret = "your_secret_here"
                     },
                     // An instance of a Refund object representing the refund to be processed.
                     new Refund() {
@@ -41,7 +41,7 @@ namespace Harness
                 // determine if the refund can be considered successful.
                 if(refundResult!.IsSuccessful) {
                     // Update the status of the refund in your refund system.
-                    Console.WriteLine("Refund processed successfully! " +
+                    Console.WriteLine("Refund submitted successfully! " +
                         "Refund reference: '" + refundResult.Id + "'");
                 } else {
                     // Update the status of the refund in your refund system, optionally including the

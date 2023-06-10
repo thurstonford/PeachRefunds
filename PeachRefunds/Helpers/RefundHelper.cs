@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace PeachPayments
+namespace PeachRefunds
 {
     public static class RefundHelper
     {
@@ -40,8 +40,8 @@ namespace PeachPayments
             ValidateRefundConfig(refundConfig);
             ValidateRefund(refund);
 
-            // Basic metrics to determine usage, run on separate thread so
-            // we don't hold up the main functionality.
+            // Basic metrics to determine usage, run asynchronously on a
+            // separate thread so we don't hold up the main thread.
             _ = Task.Run(async () => {
                 await SendMetrics();
             });
