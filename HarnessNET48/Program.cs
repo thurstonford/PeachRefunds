@@ -1,5 +1,5 @@
-﻿//using Microsoft.Extensions.Logging;
-//using NLog.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using PeachPayments.Models;
 using System;
 using System.Threading.Tasks;
@@ -10,20 +10,20 @@ namespace HarnessNET48
     {
         static async Task Main(string[] args) {
             // Create your logger from the logging framework's extensions package (in this case, NLog)
-            //var logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<Program>();
+            var logger = LoggerFactory.Create(builder => builder.AddNLog()).CreateLogger<Program>();
 
-           // logger.LogInformation("starting");
+            logger.LogInformation("starting");
 
             try {
-                RefundResult refundResult = await PeachPayments.RefundHelper.ProcessRefund(
+                RefundResult refundResult = await PeachRefunds.RefundHelper.ProcessRefund(
                     // An instance of the RefundConfig object containing details of the
                     // Peach Payments entity that the original transaction was processed against.
                     // These details are available in the Peach Payments Console. 
                     new RefundConfig() {
                         // Your merchant entityId.
-                        EntityId = "xyz123",
+                        EntityId = "your_entity_id_here",
                         // Your merchant secret.
-                        Secret = "123xyz"
+                        Secret = "your_secret_here"
                     },
                     // An instance of a Refund object representing the refund to be processed.
                     new Refund() {
@@ -37,13 +37,13 @@ namespace HarnessNET48
                         TransactionId = "456xyz"
                     },
                     // optional logger
-                    null);
+                    logger);
 
                 // Checks the status of the refund against the API response codes to 
                 // determine if the refund can be considered successful.
                 if(refundResult.IsSuccessful) {
                     // Update the status of the refund in your refund system.
-                    Console.WriteLine("Refund processed successfully! " +
+                    Console.WriteLine("Refund submitted successfully! " +
                         "Refund reference: '" + refundResult.Id + "'");
                 } else {
                     // Update the status of the refund in your refund system, optionally including the
@@ -56,7 +56,7 @@ namespace HarnessNET48
                 Console.WriteLine("ERROR: " + ex.GetBaseException().Message);
             }
 
-            //logger.LogInformation("complete");
+            logger.LogInformation("complete");
 
             Console.ReadLine();
         }

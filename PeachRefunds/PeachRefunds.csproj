@@ -12,18 +12,20 @@
     <Title>Process refunds for Peach Payments credit card transactions.</Title>
     <Authors>Lance Ford</Authors>
     <Company>COGWare</Company>
-    <Description>Process Peach Payments credit card refunds easily via this robust and performant wrapper for the Peach Payments refund API.</Description>
+    <Description>Submit Peach Payment refunds easily via this robust and performant wrapper for the Peach Payments refund API.</Description>
     <PackageTags>peach;payment;refund;credit;card;ecommerce;</PackageTags>
     <PackageProjectUrl>https://github.com/thurstonford/PeachRefunds</PackageProjectUrl>
     <Product>COGWare.$(AssemblyName)</Product>
-    <Version>$(VersionPrefix)1.0.7</Version>
+    <Version>$(VersionPrefix)2.0.0</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <Copyright>Copyright (c) COGWare 2023</Copyright>
+    <Copyright>Copyright © COGWare 2023</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
-    <FileVersion>1.0.1</FileVersion>
+    <FileVersion>2.0.0</FileVersion>
     <PackageIcon>logo_light_128.png</PackageIcon>
-    <PackageReleaseNotes>Added "buy me a coffee" section to readme.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added licence and changed namespace from PeachPayments to PeachRefunds - just in case somebody at Peach Payments gets grumpy with me.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <!-- Only enable nullable feature for the supported frameworks -->
